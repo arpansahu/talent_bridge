@@ -1,5 +1,5 @@
 pipeline {
-    agent {'local'}
+   agent { label 'local' }
     stages {
         stage('Production') {
             steps {
