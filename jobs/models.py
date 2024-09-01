@@ -4,7 +4,7 @@ from companies.models import Company
 from locations.models import Locations
 
 # Create your models here.
-from JobPortal.models import AbstractBaseModel
+from talent_bridge.models import AbstractBaseModel
 
 
 class Jobs(AbstractBaseModel):

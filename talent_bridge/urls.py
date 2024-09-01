@@ -1,4 +1,4 @@
-"""JobPortal URL Configuration
+"""talent_bridge URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -57,7 +57,7 @@ urlpatterns = [
          name='password_reset_complete'),
 ]
 
-handler404 = 'JobPortal.views.handler404'
-handler500 = 'JobPortal.views.handler500'
-handler403 = 'JobPortal.views.handler404'
-handler400 = 'JobPortal.views.handler500'
+handler404 = 'talent_bridge.views.handler404'
+handler500 = 'talent_bridge.views.handler500'
+handler403 = 'talent_bridge.views.handler404'
+handler400 = 'talent_bridge.views.handler500'

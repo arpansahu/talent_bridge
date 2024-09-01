@@ -4,7 +4,7 @@ services:
   web:
     build: .
     env_file: ./.env
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn --bind 0.0.0.0:8015 JobPortal.wsgi"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn --bind 0.0.0.0:8015 talent_bridge.wsgi"
     image: job_portal_admin_panel
     container_name: job_portal_admin_panel
     volumes:

@@ -1,8 +1,8 @@
 from django.db import models
-from JobPortal.storage_backends import PublicMediaStorage
+from talent_bridge.storage_backends import PublicMediaStorage
 
 # Create your models here.
-from JobPortal.models import AbstractBaseModel
+from talent_bridge.models import AbstractBaseModel
 
 
 class Company(AbstractBaseModel):

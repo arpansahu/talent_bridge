@@ -1,5 +1,5 @@
 """
-ASGI config for JobPortal project.
+ASGI config for talent_bridge project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'JobPortal.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'talent_bridge.settings')
 
 application = get_asgi_application()
