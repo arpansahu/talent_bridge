@@ -21,6 +21,6 @@ class AbstractBaseModel(models.Model):
     class Meta:
         abstract = True
 
-    def save(self, *args, **kwargs):
-        self.modified = timezone.now()
-        return super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.modified = timezone.now()
+    #     return super().save(*args, **kwargs)

@@ -434,6 +434,9 @@ class LocationsListView(ListView):
 
         if self.request.GET.get("city"):
             queryset = queryset.filter(city=self.request.GET.get("city"))
+        
+        if self.request.GET.get("state"):
+            queryset = queryset.filter(state=self.request.GET.get("state"))
 
         return queryset
 
