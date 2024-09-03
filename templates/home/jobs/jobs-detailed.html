@@ -5,10 +5,10 @@
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
-    <link
-  rel="stylesheet"
-  href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css"
-/>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css"
+  />
 {% endblock stylesheets %}
 
 {% block content %}
@@ -112,7 +112,7 @@
                 <div style="padding: 20px">
                     <div class="row">
                         <p>
-                            {{ job.post| linebreaks }}
+                            {{ job.post| safe }}
                         </p>
                     </div>
                 </div>
@@ -130,5 +130,4 @@
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
-
 {% endblock javascripts %}

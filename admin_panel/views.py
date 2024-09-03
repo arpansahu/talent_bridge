@@ -104,13 +104,11 @@ class JobsListView(ListView):
         if self.request.GET.get("date-range"):
             obj = self.request.GET.get("date-range").split(' to ')
             if len(obj) == 2:
-                from_date = datetime.datetime.strptime(obj[0], '%Y-%m-%d')
-                to_date = datetime.datetime.strptime(obj[1], '%Y-%m-%d')
-                to_date += datetime.timedelta(days=1)
+                from_date = timezone.make_aware(datetime.datetime.strptime(obj[0], '%Y-%m-%d'))
+                to_date = timezone.make_aware(datetime.datetime.strptime(obj[1], '%Y-%m-%d')) + datetime.timedelta(days=1)
             if len(obj) == 1:
-                from_date = datetime.datetime.strptime(obj[0], '%Y-%m-%d')
-                to_date = datetime.datetime.strptime(obj[0], '%Y-%m-%d')
-                to_date += datetime.timedelta(days=1)
+                from_date = timezone.make_aware(datetime.datetime.strptime(obj[0], '%Y-%m-%d'))
+                to_date = timezone.make_aware(datetime.datetime.strptime(obj[0], '%Y-%m-%d')) + datetime.timedelta(days=1)
 
             queryset = queryset.filter(date__range=[from_date, to_date])
 
@@ -130,7 +128,7 @@ class JobsListView(ListView):
             queryset = queryset.filter(location__city=self.request.GET.get("job-city"))
 
         if self.request.GET.get("job-state"):
-            queryset = queryset.filter(location__city=self.request.GET.get("job-state"))
+            queryset = queryset.filter(location__state=self.request.GET.get("job-state"))
 
         if self.request.GET.get("job-job-id"):
             queryset = queryset.filter(job_id=self.request.GET.get("job-job-id"))
@@ -142,28 +140,28 @@ class JobsListView(ListView):
         context['segment'] = 'jobs'
         company_list = Company.objects.all()
         context['company_list'] = company_list
-        today_min = datetime.datetime.combine(datetime.date.today(), datetime.time.min)
-        today_max = datetime.datetime.combine(datetime.date.today(), datetime.time.max)
+        
+        today_min = timezone.make_aware(datetime.datetime.combine(datetime.date.today(), datetime.time.min))
+        today_max = timezone.make_aware(datetime.datetime.combine(datetime.date.today(), datetime.time.max))
         new_jobs = Jobs.objects.filter(date__range=(today_min, today_max)).count()
+        
         try:
             new_jobs_perc = (new_jobs / context['jobs_list'].count()) * 100
-        except:
+        except ZeroDivisionError:
             new_jobs_perc = 0
+        
         context['new_jobs'] = new_jobs
         context['new_jobs_perc'] = new_jobs_perc
         context['total_jobs'] = Jobs.objects.filter(available=True).count()
-        yesterday_min = datetime.datetime.combine(datetime.date.today() - datetime.timedelta(days=1), datetime.time.min)
-        yesterday_max = datetime.datetime.combine(datetime.date.today() - datetime.timedelta(days=1), datetime.time.max)
+        
+        yesterday_min = timezone.make_aware(datetime.datetime.combine(datetime.date.today() - datetime.timedelta(days=1), datetime.time.min))
+        yesterday_max = timezone.make_aware(datetime.datetime.combine(datetime.date.today() - datetime.timedelta(days=1), datetime.time.max))
         total_yesterday_jobs = JobsStats.objects.filter(date__range=(yesterday_min, yesterday_max)).first()
 
         try:
             if total_yesterday_jobs and total_yesterday_jobs.total_available:
-                context['total_jobs_change'] = ((context[
-                                                     'total_jobs'] - total_yesterday_jobs.total_available) / total_yesterday_jobs.total_available) * 100
-                if context['total_jobs_change'] > 0:
-                    context['total_jobs_change_positive'] = True
-                else:
-                    context['total_jobs_change_positive'] = False
+                context['total_jobs_change'] = ((context['total_jobs'] - total_yesterday_jobs.total_available) / total_yesterday_jobs.total_available) * 100
+                context['total_jobs_change_positive'] = context['total_jobs_change'] > 0
             else:
                 context['total_jobs_change'] = 0
         except:
@@ -171,20 +169,19 @@ class JobsListView(ListView):
 
         context['total_unavailable_jobs'] = Jobs.objects.filter(available=False).count()
         total_yesterday_unavailable_jobs = JobsStats.objects.filter(date__range=(yesterday_min, yesterday_max)).first()
+        
         try:
             if total_yesterday_unavailable_jobs and total_yesterday_unavailable_jobs.total_unavailable:
-                context['total_unavailable_jobs_change'] = ((context[
-                                                                 'total_unavailable_jobs'] - total_yesterday_unavailable_jobs.total_unavailable) / total_yesterday_unavailable_jobs.total_unavailable) * 100
+                context['total_unavailable_jobs_change'] = ((context['total_unavailable_jobs'] - total_yesterday_unavailable_jobs.total_unavailable) / total_yesterday_unavailable_jobs.total_unavailable) * 100
             else:
                 context['total_unavailable_jobs_change'] = 0
         except:
             context['total_unavailable_jobs_change'] = 0
+        
         total_non_reviewed = Jobs.objects.filter(available=True, reviewed=False).count()
         context['total_non_reviewed'] = total_non_reviewed
 
         return context
-
-
 @method_decorator(login_required(login_url='login'), name='dispatch')
 class JobsView(DetailView):
     model = Jobs
