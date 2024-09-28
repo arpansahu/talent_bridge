@@ -1,4 +1,15 @@
 {% load static %}
+{% block stylesheets %}
+<style>
+  .white-curved-bg {
+    background-image: url("{% static 'assets/img/curved-images/white-curved.jpeg' %}");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+</style>
+{% endblock stylesheets %}
+
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-end me-3 rotate-caret" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute start-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -179,7 +190,7 @@
     </div>
     <div class="sidenav-footer mx-3 ">
       <div class="card card-background shadow-none card-background-mask-secondary" id="sidenavCard">
-        <div class="full-background" style="background-image: url('https://talent_bridge-bucket-s3.s3.ap-south-1.amazonaws.com/static/assets/img/curved-images/white-curved.jpeg')"></div>
+        <div class="full-background white-curved-bg"></div>
         <div class="card-body text-start p-3 w-100">
           <div class="icon icon-shape icon-sm bg-white shadow text-center mb-3 d-flex align-items-center justify-content-center border-radius-md">
             <i class="ni ni-diamond text-dark text-gradient text-lg top-0" aria-hidden="true" id="sidenavCardIcon"></i>

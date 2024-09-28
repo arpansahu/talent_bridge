@@ -3,7 +3,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 # Create your models here.
-from talent_bridge.models import AbstractBaseModel
+from talent_bridged.models import AbstractBaseModel
 
 
 class MyAccountManager(BaseUserManager):

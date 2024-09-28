@@ -10,4 +10,4 @@ RUN pip3 install -r requirements.txt
 
 EXPOSE 8014
 
-CMD gunicorn --bind 0.0.0.0:8015 talent_bridge.wsgi
+CMD gunicorn --bind 0.0.0.0:8015 talent_bridged.wsgi

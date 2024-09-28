@@ -3,18 +3,29 @@
 {% block title %} Billing {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+<style>
+  .card-bg-image {
+    background-image: url("{% static 'assets/img/curved-images/curved14.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+
+  .mask-bg-gradient {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1));
+  }
+</style>
+{% endblock stylesheets %}
 
 {% block content %}
-
   <div class="container-fluid py-4">
     <div class="row">
       <div class="col-lg-8">
         <div class="row">
           <div class="col-xl-6 mb-xl-0 mb-4">
             <div class="card bg-transparent shadow-xl">
-              <div class="overflow-hidden position-relative border-radius-xl" style="background-image: url('https://talent_bridge-bucket-s3.s3.ap-south-1.amazonaws.com/static/assets/img/curved-images/curved14.jpg');">
-                <span class="mask bg-gradient-dark"></span>
+              <div class="card-bg-image border-radius-xl mask-bg-gradient">
                 <div class="card-body position-relative z-index-1 p-3">
                   <i class="fas fa-wifi text-white p-2"></i>
                   <h5 class="text-white mt-4 mb-5 pb-2">4562&nbsp;&nbsp;&nbsp;1122&nbsp;&nbsp;&nbsp;4594&nbsp;&nbsp;&nbsp;7852</h5>
@@ -30,13 +41,14 @@
                       </div>
                     </div>
                     <div class="ms-auto w-20 d-flex align-items-end justify-content-end">
-                      <img class="w-60 mt-2" src="/static/assets/img/logos/mastercard.png" alt="logo">
+                      <img class="w-60 mt-2" src="{% static 'assets/img/logos/mastercard.png' %}" alt="logo">
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="col-xl-6">
             <div class="row">
               <div class="col-md-6">
@@ -54,6 +66,7 @@
                   </div>
                 </div>
               </div>
+
               <div class="col-md-6 mt-md-0 mt-4">
                 <div class="card">
                   <div class="card-header mx-4 p-3 text-center">
@@ -71,6 +84,7 @@
               </div>
             </div>
           </div>
+
           <div class="col-md-12 mb-lg-0 mb-4">
             <div class="card mt-4">
               <div class="card-header pb-0 p-3">
@@ -87,14 +101,15 @@
                 <div class="row">
                   <div class="col-md-6 mb-md-0 mb-4">
                     <div class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
-                      <img class="w-10 me-3 mb-0" src="/static/assets/img/logos/mastercard.png" alt="logo">
+                      <img class="w-10 me-3 mb-0" src="{% static 'assets/img/logos/mastercard.png' %}" alt="logo">
                       <h6 class="mb-0">****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;7852</h6>
                       <i class="fas fa-pencil-alt ms-auto text-dark cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Card"></i>
                     </div>
                   </div>
+
                   <div class="col-md-6">
                     <div class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
-                      <img class="w-10 me-3 mb-0" src="/static/assets/img/logos/visa.png" alt="logo">
+                      <img class="w-10 me-3 mb-0" src="{% static 'assets/img/logos/visa.png' %}" alt="logo">
                       <h6 class="mb-0">****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;5248</h6>
                       <i class="fas fa-pencil-alt ms-auto text-dark cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Card"></i>
                     </div>
@@ -103,8 +118,10 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
+
       <div class="col-lg-4">
         <div class="card h-100">
           <div class="card-header pb-0 p-3">
@@ -318,12 +335,11 @@
         </div>
       </div>
     </div>
-
+    
     {% include "includes/footer.html" %}
 
   </div>
-
 {% endblock content %}
 
-<!-- Specific JS goes HERE --> 
+<!-- Specific JS goes HERE -->
 {% block javascripts %}{% endblock javascripts %}
